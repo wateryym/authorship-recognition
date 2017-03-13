@@ -1,0 +1,17 @@
+wiertz016.jpg 1
+wiertz017.jpg 1
+wiertz018.jpg 1
+wiertz04.jpg 1
+wiertz_burial.jpg 1
+wiertz_suicide.jpg 1
+wiertz_triptych.jpg 1
+rodin_magdalen2.jpg 0
+rodin_nose.jpg 0
+rodin_rb.jpg 0
+rodin_secret.jpg 0
+rodin_thought1.jpg 0
+rodin_thought2.jpg 0
+rodin_tomb.jpg 0
+rodin_torso1.jpg 0
+rodin_torso2.jpg 0
+rodin_torso3.jpg 0
