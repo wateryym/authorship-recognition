@@ -5,7 +5,7 @@ layers {
   top: "data"
   top: "label"
   data_param {
-    source: "examples/authorship/train_lmdb"
+    source: "examples/authorship/data/train_lmdb"
     backend: LMDB
     batch_size: 8
   }
@@ -20,9 +20,9 @@ layers {
   top: "data"
   top: "label"
   data_param {
-    source: "examples/authorship/test_lmdb"
+    source: "examples/authorship/data/test_lmdb"
     backend: LMDB
-    batch_size: 8
+    batch_size: 5
   }
   transform_param {
     scale: 0.00390625
