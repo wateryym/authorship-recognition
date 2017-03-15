@@ -1,0 +1,578 @@
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I0315 06:04:04.157598  3684 net.cpp:49] Initializing net from parameters: 
+name: "CaffeNet"
+state {
+  phase: TEST
+}
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 10
+      dim: 3
+      dim: 227
+      dim: 227
+    }
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  convolution_param {
+    num_output: 96
+    kernel_size: 11
+    stride: 4
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm1"
+  type: "LRN"
+  bottom: "pool1"
+  top: "norm1"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "norm1"
+  top: "conv2"
+  convolution_param {
+    num_output: 256
+    pad: 2
+    kernel_size: 5
+    group: 2
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "norm2"
+  type: "LRN"
+  bottom: "pool2"
+  top: "norm2"
+  lrn_param {
+    local_size: 5
+    alpha: 0.0001
+    beta: 0.75
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "norm2"
+  top: "conv3"
+  convolution_param {
+    num_output: 384
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "conv4"
+  type: "Convolution"
+  bottom: "conv3"
+  top: "conv4"
+  convolution_param {
+    num_output: 384
+    pad: 1
+    kernel_size: 3
+    group: 2
+  }
+}
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "conv5"
+  type: "Convolution"
+  bottom: "conv4"
+  top: "conv5"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    group: 2
+  }
+}
+layer {
+  name: "relu5"
+  type: "ReLU"
+  bottom: "conv5"
+  top: "conv5"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv5"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 3
+    stride: 2
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc8"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "fc8"
+  inner_product_param {
+    num_output: 1000
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "fc8"
+  top: "prob"
+}
+I0315 06:04:04.157717  3684 layer_factory.hpp:77] Creating layer data
+I0315 06:04:04.157732  3684 net.cpp:91] Creating Layer data
+I0315 06:04:04.157739  3684 net.cpp:399] data -> data
+I0315 06:04:04.157766  3684 net.cpp:141] Setting up data
+I0315 06:04:04.157776  3684 net.cpp:148] Top shape: 10 3 227 227 (1545870)
+I0315 06:04:04.157780  3684 net.cpp:156] Memory required for data: 6183480
+I0315 06:04:04.157785  3684 layer_factory.hpp:77] Creating layer conv1
+I0315 06:04:04.157796  3684 net.cpp:91] Creating Layer conv1
+I0315 06:04:04.157801  3684 net.cpp:425] conv1 <- data
+I0315 06:04:04.157809  3684 net.cpp:399] conv1 -> conv1
+I0315 06:04:04.157927  3684 net.cpp:141] Setting up conv1
+I0315 06:04:04.157935  3684 net.cpp:148] Top shape: 10 96 55 55 (2904000)
+I0315 06:04:04.157939  3684 net.cpp:156] Memory required for data: 17799480
+I0315 06:04:04.157953  3684 layer_factory.hpp:77] Creating layer relu1
+I0315 06:04:04.157960  3684 net.cpp:91] Creating Layer relu1
+I0315 06:04:04.157964  3684 net.cpp:425] relu1 <- conv1
+I0315 06:04:04.157975  3684 net.cpp:386] relu1 -> conv1 (in-place)
+I0315 06:04:04.157989  3684 net.cpp:141] Setting up relu1
+I0315 06:04:04.157994  3684 net.cpp:148] Top shape: 10 96 55 55 (2904000)
+I0315 06:04:04.157997  3684 net.cpp:156] Memory required for data: 29415480
+I0315 06:04:04.158001  3684 layer_factory.hpp:77] Creating layer pool1
+I0315 06:04:04.158007  3684 net.cpp:91] Creating Layer pool1
+I0315 06:04:04.158011  3684 net.cpp:425] pool1 <- conv1
+I0315 06:04:04.158016  3684 net.cpp:399] pool1 -> pool1
+I0315 06:04:04.158027  3684 net.cpp:141] Setting up pool1
+I0315 06:04:04.158033  3684 net.cpp:148] Top shape: 10 96 27 27 (699840)
+I0315 06:04:04.158036  3684 net.cpp:156] Memory required for data: 32214840
+I0315 06:04:04.158041  3684 layer_factory.hpp:77] Creating layer norm1
+I0315 06:04:04.158048  3684 net.cpp:91] Creating Layer norm1
+I0315 06:04:04.158052  3684 net.cpp:425] norm1 <- pool1
+I0315 06:04:04.158057  3684 net.cpp:399] norm1 -> norm1
+I0315 06:04:04.158066  3684 net.cpp:141] Setting up norm1
+I0315 06:04:04.158071  3684 net.cpp:148] Top shape: 10 96 27 27 (699840)
+I0315 06:04:04.158074  3684 net.cpp:156] Memory required for data: 35014200
+I0315 06:04:04.158078  3684 layer_factory.hpp:77] Creating layer conv2
+I0315 06:04:04.158084  3684 net.cpp:91] Creating Layer conv2
+I0315 06:04:04.158088  3684 net.cpp:425] conv2 <- norm1
+I0315 06:04:04.158093  3684 net.cpp:399] conv2 -> conv2
+I0315 06:04:04.158733  3684 net.cpp:141] Setting up conv2
+I0315 06:04:04.158742  3684 net.cpp:148] Top shape: 10 256 27 27 (1866240)
+I0315 06:04:04.158746  3684 net.cpp:156] Memory required for data: 42479160
+I0315 06:04:04.158754  3684 layer_factory.hpp:77] Creating layer relu2
+I0315 06:04:04.158761  3684 net.cpp:91] Creating Layer relu2
+I0315 06:04:04.158764  3684 net.cpp:425] relu2 <- conv2
+I0315 06:04:04.158769  3684 net.cpp:386] relu2 -> conv2 (in-place)
+I0315 06:04:04.158776  3684 net.cpp:141] Setting up relu2
+I0315 06:04:04.158779  3684 net.cpp:148] Top shape: 10 256 27 27 (1866240)
+I0315 06:04:04.158783  3684 net.cpp:156] Memory required for data: 49944120
+I0315 06:04:04.158787  3684 layer_factory.hpp:77] Creating layer pool2
+I0315 06:04:04.158793  3684 net.cpp:91] Creating Layer pool2
+I0315 06:04:04.158797  3684 net.cpp:425] pool2 <- conv2
+I0315 06:04:04.158802  3684 net.cpp:399] pool2 -> pool2
+I0315 06:04:04.158810  3684 net.cpp:141] Setting up pool2
+I0315 06:04:04.158814  3684 net.cpp:148] Top shape: 10 256 13 13 (432640)
+I0315 06:04:04.158818  3684 net.cpp:156] Memory required for data: 51674680
+I0315 06:04:04.158823  3684 layer_factory.hpp:77] Creating layer norm2
+I0315 06:04:04.158830  3684 net.cpp:91] Creating Layer norm2
+I0315 06:04:04.158833  3684 net.cpp:425] norm2 <- pool2
+I0315 06:04:04.158838  3684 net.cpp:399] norm2 -> norm2
+I0315 06:04:04.158845  3684 net.cpp:141] Setting up norm2
+I0315 06:04:04.158850  3684 net.cpp:148] Top shape: 10 256 13 13 (432640)
+I0315 06:04:04.158854  3684 net.cpp:156] Memory required for data: 53405240
+I0315 06:04:04.158857  3684 layer_factory.hpp:77] Creating layer conv3
+I0315 06:04:04.158864  3684 net.cpp:91] Creating Layer conv3
+I0315 06:04:04.158866  3684 net.cpp:425] conv3 <- norm2
+I0315 06:04:04.158871  3684 net.cpp:399] conv3 -> conv3
+I0315 06:04:04.160362  3684 net.cpp:141] Setting up conv3
+I0315 06:04:04.160373  3684 net.cpp:148] Top shape: 10 384 13 13 (648960)
+I0315 06:04:04.160377  3684 net.cpp:156] Memory required for data: 56001080
+I0315 06:04:04.160387  3684 layer_factory.hpp:77] Creating layer relu3
+I0315 06:04:04.160392  3684 net.cpp:91] Creating Layer relu3
+I0315 06:04:04.160396  3684 net.cpp:425] relu3 <- conv3
+I0315 06:04:04.160401  3684 net.cpp:386] relu3 -> conv3 (in-place)
+I0315 06:04:04.160408  3684 net.cpp:141] Setting up relu3
+I0315 06:04:04.160413  3684 net.cpp:148] Top shape: 10 384 13 13 (648960)
+I0315 06:04:04.160416  3684 net.cpp:156] Memory required for data: 58596920
+I0315 06:04:04.160419  3684 layer_factory.hpp:77] Creating layer conv4
+I0315 06:04:04.160425  3684 net.cpp:91] Creating Layer conv4
+I0315 06:04:04.160429  3684 net.cpp:425] conv4 <- conv3
+I0315 06:04:04.160440  3684 net.cpp:399] conv4 -> conv4
+I0315 06:04:04.161804  3684 net.cpp:141] Setting up conv4
+I0315 06:04:04.161814  3684 net.cpp:148] Top shape: 10 384 13 13 (648960)
+I0315 06:04:04.161818  3684 net.cpp:156] Memory required for data: 61192760
+I0315 06:04:04.161825  3684 layer_factory.hpp:77] Creating layer relu4
+I0315 06:04:04.161831  3684 net.cpp:91] Creating Layer relu4
+I0315 06:04:04.161835  3684 net.cpp:425] relu4 <- conv4
+I0315 06:04:04.161839  3684 net.cpp:386] relu4 -> conv4 (in-place)
+I0315 06:04:04.161845  3684 net.cpp:141] Setting up relu4
+I0315 06:04:04.161850  3684 net.cpp:148] Top shape: 10 384 13 13 (648960)
+I0315 06:04:04.161854  3684 net.cpp:156] Memory required for data: 63788600
+I0315 06:04:04.161857  3684 layer_factory.hpp:77] Creating layer conv5
+I0315 06:04:04.161865  3684 net.cpp:91] Creating Layer conv5
+I0315 06:04:04.161870  3684 net.cpp:425] conv5 <- conv4
+I0315 06:04:04.161875  3684 net.cpp:399] conv5 -> conv5
+I0315 06:04:04.162786  3684 net.cpp:141] Setting up conv5
+I0315 06:04:04.162796  3684 net.cpp:148] Top shape: 10 256 13 13 (432640)
+I0315 06:04:04.162801  3684 net.cpp:156] Memory required for data: 65519160
+I0315 06:04:04.162809  3684 layer_factory.hpp:77] Creating layer relu5
+I0315 06:04:04.162816  3684 net.cpp:91] Creating Layer relu5
+I0315 06:04:04.162819  3684 net.cpp:425] relu5 <- conv5
+I0315 06:04:04.162824  3684 net.cpp:386] relu5 -> conv5 (in-place)
+I0315 06:04:04.162830  3684 net.cpp:141] Setting up relu5
+I0315 06:04:04.162834  3684 net.cpp:148] Top shape: 10 256 13 13 (432640)
+I0315 06:04:04.162838  3684 net.cpp:156] Memory required for data: 67249720
+I0315 06:04:04.162842  3684 layer_factory.hpp:77] Creating layer pool5
+I0315 06:04:04.162847  3684 net.cpp:91] Creating Layer pool5
+I0315 06:04:04.162850  3684 net.cpp:425] pool5 <- conv5
+I0315 06:04:04.162855  3684 net.cpp:399] pool5 -> pool5
+I0315 06:04:04.162863  3684 net.cpp:141] Setting up pool5
+I0315 06:04:04.162868  3684 net.cpp:148] Top shape: 10 256 6 6 (92160)
+I0315 06:04:04.162871  3684 net.cpp:156] Memory required for data: 67618360
+I0315 06:04:04.162874  3684 layer_factory.hpp:77] Creating layer fc6
+I0315 06:04:04.162884  3684 net.cpp:91] Creating Layer fc6
+I0315 06:04:04.162889  3684 net.cpp:425] fc6 <- pool5
+I0315 06:04:04.162894  3684 net.cpp:399] fc6 -> fc6
+I0315 06:04:04.217305  3684 net.cpp:141] Setting up fc6
+I0315 06:04:04.217336  3684 net.cpp:148] Top shape: 10 4096 (40960)
+I0315 06:04:04.217340  3684 net.cpp:156] Memory required for data: 67782200
+I0315 06:04:04.217352  3684 layer_factory.hpp:77] Creating layer relu6
+I0315 06:04:04.217362  3684 net.cpp:91] Creating Layer relu6
+I0315 06:04:04.217367  3684 net.cpp:425] relu6 <- fc6
+I0315 06:04:04.217375  3684 net.cpp:386] relu6 -> fc6 (in-place)
+I0315 06:04:04.217382  3684 net.cpp:141] Setting up relu6
+I0315 06:04:04.217387  3684 net.cpp:148] Top shape: 10 4096 (40960)
+I0315 06:04:04.217391  3684 net.cpp:156] Memory required for data: 67946040
+I0315 06:04:04.217394  3684 layer_factory.hpp:77] Creating layer drop6
+I0315 06:04:04.217406  3684 net.cpp:91] Creating Layer drop6
+I0315 06:04:04.217411  3684 net.cpp:425] drop6 <- fc6
+I0315 06:04:04.217416  3684 net.cpp:386] drop6 -> fc6 (in-place)
+I0315 06:04:04.217423  3684 net.cpp:141] Setting up drop6
+I0315 06:04:04.217429  3684 net.cpp:148] Top shape: 10 4096 (40960)
+I0315 06:04:04.217432  3684 net.cpp:156] Memory required for data: 68109880
+I0315 06:04:04.217437  3684 layer_factory.hpp:77] Creating layer fc7
+I0315 06:04:04.217444  3684 net.cpp:91] Creating Layer fc7
+I0315 06:04:04.217448  3684 net.cpp:425] fc7 <- fc6
+I0315 06:04:04.217454  3684 net.cpp:399] fc7 -> fc7
+I0315 06:04:04.241822  3684 net.cpp:141] Setting up fc7
+I0315 06:04:04.241849  3684 net.cpp:148] Top shape: 10 4096 (40960)
+I0315 06:04:04.241854  3684 net.cpp:156] Memory required for data: 68273720
+I0315 06:04:04.241865  3684 layer_factory.hpp:77] Creating layer relu7
+I0315 06:04:04.241874  3684 net.cpp:91] Creating Layer relu7
+I0315 06:04:04.241879  3684 net.cpp:425] relu7 <- fc7
+I0315 06:04:04.241886  3684 net.cpp:386] relu7 -> fc7 (in-place)
+I0315 06:04:04.241904  3684 net.cpp:141] Setting up relu7
+I0315 06:04:04.241909  3684 net.cpp:148] Top shape: 10 4096 (40960)
+I0315 06:04:04.241912  3684 net.cpp:156] Memory required for data: 68437560
+I0315 06:04:04.241915  3684 layer_factory.hpp:77] Creating layer drop7
+I0315 06:04:04.241925  3684 net.cpp:91] Creating Layer drop7
+I0315 06:04:04.241928  3684 net.cpp:425] drop7 <- fc7
+I0315 06:04:04.241933  3684 net.cpp:386] drop7 -> fc7 (in-place)
+I0315 06:04:04.241940  3684 net.cpp:141] Setting up drop7
+I0315 06:04:04.241945  3684 net.cpp:148] Top shape: 10 4096 (40960)
+I0315 06:04:04.241948  3684 net.cpp:156] Memory required for data: 68601400
+I0315 06:04:04.241951  3684 layer_factory.hpp:77] Creating layer fc8
+I0315 06:04:04.241958  3684 net.cpp:91] Creating Layer fc8
+I0315 06:04:04.241962  3684 net.cpp:425] fc8 <- fc7
+I0315 06:04:04.241968  3684 net.cpp:399] fc8 -> fc8
+I0315 06:04:04.247983  3684 net.cpp:141] Setting up fc8
+I0315 06:04:04.247998  3684 net.cpp:148] Top shape: 10 1000 (10000)
+I0315 06:04:04.248001  3684 net.cpp:156] Memory required for data: 68641400
+I0315 06:04:04.248009  3684 layer_factory.hpp:77] Creating layer prob
+I0315 06:04:04.248018  3684 net.cpp:91] Creating Layer prob
+I0315 06:04:04.248023  3684 net.cpp:425] prob <- fc8
+I0315 06:04:04.248029  3684 net.cpp:399] prob -> prob
+I0315 06:04:04.248045  3684 net.cpp:141] Setting up prob
+I0315 06:04:04.248051  3684 net.cpp:148] Top shape: 10 1000 (10000)
+I0315 06:04:04.248055  3684 net.cpp:156] Memory required for data: 68681400
+I0315 06:04:04.248059  3684 net.cpp:219] prob does not need backward computation.
+I0315 06:04:04.248064  3684 net.cpp:219] fc8 does not need backward computation.
+I0315 06:04:04.248069  3684 net.cpp:219] drop7 does not need backward computation.
+I0315 06:04:04.248072  3684 net.cpp:219] relu7 does not need backward computation.
+I0315 06:04:04.248076  3684 net.cpp:219] fc7 does not need backward computation.
+I0315 06:04:04.248081  3684 net.cpp:219] drop6 does not need backward computation.
+I0315 06:04:04.248086  3684 net.cpp:219] relu6 does not need backward computation.
+I0315 06:04:04.248091  3684 net.cpp:219] fc6 does not need backward computation.
+I0315 06:04:04.248096  3684 net.cpp:219] pool5 does not need backward computation.
+I0315 06:04:04.248100  3684 net.cpp:219] relu5 does not need backward computation.
+I0315 06:04:04.248106  3684 net.cpp:219] conv5 does not need backward computation.
+I0315 06:04:04.248109  3684 net.cpp:219] relu4 does not need backward computation.
+I0315 06:04:04.248113  3684 net.cpp:219] conv4 does not need backward computation.
+I0315 06:04:04.248118  3684 net.cpp:219] relu3 does not need backward computation.
+I0315 06:04:04.248122  3684 net.cpp:219] conv3 does not need backward computation.
+I0315 06:04:04.248127  3684 net.cpp:219] norm2 does not need backward computation.
+I0315 06:04:04.248131  3684 net.cpp:219] pool2 does not need backward computation.
+I0315 06:04:04.248136  3684 net.cpp:219] relu2 does not need backward computation.
+I0315 06:04:04.248141  3684 net.cpp:219] conv2 does not need backward computation.
+I0315 06:04:04.248144  3684 net.cpp:219] norm1 does not need backward computation.
+I0315 06:04:04.248148  3684 net.cpp:219] pool1 does not need backward computation.
+I0315 06:04:04.248153  3684 net.cpp:219] relu1 does not need backward computation.
+I0315 06:04:04.248157  3684 net.cpp:219] conv1 does not need backward computation.
+I0315 06:04:04.248162  3684 net.cpp:219] data does not need backward computation.
+I0315 06:04:04.248164  3684 net.cpp:261] This network produces output prob
+I0315 06:04:04.248178  3684 net.cpp:274] Network initialization done.
+I0315 06:04:04.651139  3684 upgrade_proto.cpp:43] Attempting to upgrade input file specified using deprecated transformation parameters: /home/ubuntu/caffe/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel
+I0315 06:04:04.651175  3684 upgrade_proto.cpp:46] Successfully upgraded file specified using deprecated data transformation parameters.
+W0315 06:04:04.651178  3684 upgrade_proto.cpp:48] Note that future Caffe releases will only support transform_param messages for transformation fields.
+I0315 06:04:04.651206  3684 upgrade_proto.cpp:52] Attempting to upgrade input file specified using deprecated V1LayerParameter: /home/ubuntu/caffe/models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel
+I0315 06:04:04.853101  3684 upgrade_proto.cpp:60] Successfully upgraded file specified using deprecated V1LayerParameter
+I0315 06:04:04.899096  3684 net.cpp:752] Ignoring source layer loss
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz_burial.jpg
+[ 0.39855433  0.          0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz005.jpg
+[  0.00000000e+00   0.00000000e+00   3.07579064e+00 ...,   0.00000000e+00
+   0.00000000e+00   1.08855963e-03]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz003.jpg
+[ 0.         0.         1.5231663 ...,  0.         0.         0.       ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz018.jpg
+[ 2.60573673  3.74055696  0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz014.jpg
+[ 0.          0.          2.23956442 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz010.jpg
+[ 3.00081301  0.0937838   2.02683282 ...,  0.24141055  0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz015.jpg
+[ 0.          0.          7.00871181 ...,  0.          0.          0.4698714 ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz017.jpg
+[ 0.7814765   0.87754387  1.43503737 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz002.jpg
+[ 0.          0.          0.         ...,  0.40429187  0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz004.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz006.jpg
+[ 0.          0.          4.20357466 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz04.jpg
+[ 0.44899923  2.08155727  0.         ...,  0.          0.          0.42890722]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz009.jpg
+[ 0.          0.          1.85070777 ...,  0.15347171  0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz_triptych.jpg
+[ 2.19155169  1.14750564  0.         ...,  0.          0.          1.74072647]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz016.jpg
+[ 0.          0.          0.         ...,  0.          0.49695289  0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz013.jpg
+[ 0.          0.          0.         ...,  0.          0.31723458  0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz007.jpg
+[ 2.97049499  0.          0.         ...,  1.57276654  0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz001.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz_suicide.jpg
+[ 1.5206759  0.         0.        ...,  0.         0.         0.       ]
+/home/ubuntu/caffe/examples/authorship/data/wiertz/wiertz012.jpg
+[ 0.          0.          2.35554004 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/burghers1.jpg
+[ 0.          0.          0.         ...,  0.          0.          1.37408853]
+/home/ubuntu/caffe/examples/authorship/data/rodin/balzac2.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_torso1.jpg
+[ 0.          0.          0.         ...,  0.          0.          0.75359142]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_crouch2.jpg
+[ 0.          0.61883909  5.3874054  ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/balzac1.jpg
+[ 0.10255694  0.          0.28653675 ...,  1.50115621  0.          0.11996001]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodincaryatid.jpg
+[ 5.37859583  0.17744237  0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_thought2.jpg
+[ 0.          4.24405718  5.6024847  ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_danaid.jpg
+[ 0.          1.56452513  3.17037845 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_jb2.jpg
+[ 0.87103987  0.65782797  0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examplfeature-extractor.py:95: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
+  rf.fit(X_train, y_train)
+/usr/local/lib/python2.7/dist-packages/sklearn/utils/validation.py:526: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+es/authorship/data/rodin/rodin_nose.jpg
+[ 0.05858028  0.          0.23990899 ...,  0.11181551  0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_carrier_b.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_iris.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/rodin/bronzage.jpg
+[ 1.87931716  0.          0.         ...,  0.83880043  0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_tomb.jpg
+[ 0.          4.51770782  2.15567613 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_eternal2.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_magdalen1.jpg
+[ 0.         0.         3.8589685 ...,  0.         0.         0.       ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_bronze.jpg
+[ 0.47554845  0.          0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_thought1.jpg
+[ 0.          3.38832474  5.38728762 ...,  0.79696465  0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/balzac_plstr.jpg
+[ 0.         0.         9.1113615 ...,  0.         0.         0.       ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_secret.jpg
+[ 0.09052539  1.13770223  0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/balzac3.jpg
+[ 0.          0.          0.         ...,  0.          0.          2.15790844]
+/home/ubuntu/caffe/examples/authorship/data/rodin/burghers2.jpg
+[ 1.43537378  0.          0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_crouch.jpg
+[ 0.          0.          4.89203453 ...,  0.          1.96682131  0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_magdalen2.jpg
+[ 0.76899016  0.          3.46767473 ...,  0.          0.92822683  0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_dalou.jpg
+[ 2.19632006  0.          0.         ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_torso2.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_eternal1.jpg
+[ 0.          0.          0.         ...,  0.          0.57645762
+  1.4984796 ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_torso3.jpg
+[ 0.          0.          1.90854144 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_rb.jpg
+[ 0.          0.          0.         ...,  0.          0.62969315  0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_handgod1.jpg
+[ 0.          0.          1.39646578 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/gates01.jpg
+[ 0.          0.          0.         ...,  0.          0.          2.08170319]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_handgod2.jpg
+[ 1.20337117  0.          3.9602139  ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_jb.jpg
+[ 0.  0.  0. ...,  0.  0.  0.]
+/home/ubuntu/caffe/examples/authorship/data/rodin/balzac4.jpg
+[ 0.01471651  0.          3.97717857 ...,  0.          0.          0.        ]
+/home/ubuntu/caffe/examples/authorship/data/rodin/rodin_hand02.jpg
+[ 0.          2.63679671  4.35531044 ...,  0.          0.          0.        ]
+(81920,)
+(143360,)
+(20, 4096)
+(35, 4096)
+(38, 4096)
+(38, 1)
+(15, 4096)
+(15, 1)
+================== RandomForestClassifier ==================
+                precision    recall  f1-score   support
+
+Antoine Wiertz       0.80      0.80      0.80         5
+ Auguste Rodin       0.90      0.90      0.90        10
+
+   avg / total       0.87      0.87      0.87        15
+
+[[4 1]
+ [1 9]]
+================== svm ==================
+                precision    recall  f1-score   support
+
+Antoine Wiertz       1.00      1.00      1.00         5
+ Auguste Rodin       1.00      1.00      1.00        10
+
+   avg / total       1.00      1.00      1.00        15
+
+[[ 5  0]
+ [ 0 10]]
+================== DecisionTreeClassifier ==================
+                precision    recall  f1-score   support
+
+Antoine Wiertz       0.67      0.80      0.73         5
+ Auguste Rodin       0.89      0.80      0.84        10
+
+   avg / total       0.81      0.80      0.80        15
+
+[[4 1]
+ [2 8]]
